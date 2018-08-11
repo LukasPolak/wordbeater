@@ -97,6 +97,7 @@ const words = [
   'space',
   'definition'
 ];
+let checkStatusInterval;
 
 // Initialize Game
 function init() {
@@ -109,7 +110,7 @@ function init() {
   // Call countdown every second
   setInterval(countdown, 1000);
   // Check game status
-  setInterval(checkStatus, 50);
+  checkStatusInterval = setInterval(checkStatus, 50);
   // enable input
   wordInput.disabled = false;
   // `this` in this context is `startButton`
@@ -175,5 +176,6 @@ function checkStatus() {
     repeatButton.style.display = 'inline';
     // disable input
     wordInput.disabled = true;
+    clearInterval(checkStatusInterval);
   }
 }
