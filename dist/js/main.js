@@ -13,6 +13,45 @@ const timeDisplay = document.querySelector('#time');
 const message = document.querySelector('#message');
 const seconds = document.querySelector('#seconds');
 
+const easyDifficulty = document.querySelector('[data-difficulty="easy"]');
+const mediumDifficulty = document.querySelector('[data-difficulty="medium"]');
+const hardDifficulty = document.querySelector('[data-difficulty="hard"]');
+const startButton = document.querySelector('[data-start]');
+const repeatButton = document.querySelector('[data-repeat]');
+
+// hide start and repeat button on load
+startButton.style.display = 'none';
+repeatButton.style.display = 'none';
+
+// listen for click
+easyDifficulty.addEventListener('click', changeLevel);
+mediumDifficulty.addEventListener('click', changeLevel);
+hardDifficulty.addEventListener('click', changeLevel);
+
+startButton.addEventListener('click', init);
+repeatButton.addEventListener('click', reload);
+
+function changeLevel() {
+  difficulty = this.dataset.difficulty;
+  if (difficulty === 'easy') {
+    currentLevel = 5;
+  } else if (difficulty === 'medium') {
+    currentLevel = 3;
+  } else {
+    currentLevel = 1;
+  }
+  // hide difficult selection button group and show start button
+  return (
+    (this.parentNode.style.display = 'none') &&
+    (startButton.style.display = 'inline')
+  );
+}
+
+// refresh browser
+function reload() {
+  location.reload();
+}
+
 // disable input
 wordInput.disabled = true;
 
