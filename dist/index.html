@@ -15,15 +15,24 @@
     <h1>WordBeater</h1>
   </header>
   <div class="container text-center">
+    <!-- Set-up game difficulty -->
+    <div class="difficulty">
+      <button type="button" class="btn btn-primary" data-difficulty="easy">Easy</button>
+      <button type="button" class="btn btn-primary" data-difficulty="medium">Medium</button>
+      <button type="button" class="btn btn-primary" data-difficulty="hard">Hard</button>
+    </div>
+    <!-- Start new game button-->
+    <button type="button" class="btn btn-primary btn-large mt-1" data-start>Start game</button>
 
     <!-- Word & Input -->
     <div class="row">
       <div class="col-md-6 mx-auto">
         <p class="lead">Type The Given Word Within
-          <span class="text-success" id="seconds">5</span> Seconds:</p>
+          <span class="text-success" id="seconds"></span> Seconds:</p>
         <h2 class="display-2 mb-5" id="current-word">hello</h2>
         <input type="text" class="form-control form-control-lg" placeholder="Start typing..." id="word-input" autofocus>
         <h4 class="mt-3" id="message"></h4>
+        <button type="button" class="btn btn-primary" data-repeat>Repeat game</button>
 
         <!-- Time & Score Columns -->
         <div class="row mt-5">
