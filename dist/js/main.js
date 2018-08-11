@@ -18,8 +18,23 @@ const mediumDifficulty = document.querySelector('[data-difficulty="medium"]');
 const hardDifficulty = document.querySelector('[data-difficulty="hard"]');
 const startButton = document.querySelector('[data-start]');
 const repeatButton = document.querySelector('[data-repeat]');
+const playerName = document.querySelector('[data-name]');
+const playerNameSubmit = document.querySelector('[data-name-submit]');
+const playerNameForm = document.querySelector('[data-form]');
+
+function getName(e) {
+  e.preventDefault();
+  if (playerName.value === '') {
+    playerName.value = 'Unknown player';
+  }
+  this.parentNode.style.display = 'none';
+  easyDifficulty.parentNode.style.display = 'block';
+}
+
+playerNameSubmit.addEventListener('click', getName);
 
 // hide start and repeat button on load
+easyDifficulty.parentNode.style.display = 'none';
 startButton.style.display = 'none';
 repeatButton.style.display = 'none';
 
