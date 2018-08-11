@@ -18,8 +18,57 @@ const mediumDifficulty = document.querySelector('[data-difficulty="medium"]');
 const hardDifficulty = document.querySelector('[data-difficulty="hard"]');
 const startButton = document.querySelector('[data-start]');
 const repeatButton = document.querySelector('[data-repeat]');
+const playerName = document.querySelector('[data-name]');
+const playerNameSubmit = document.querySelector('[data-name-submit]');
+const playerNameForm = document.querySelector('[data-form]');
+const currentScore = document.querySelector('[data-score]');
+const tableBody = document.querySelector('[data-table-body]');
+
+let items = JSON.parse(localStorage.getItem('items')) || [];
+
+function getName(e) {
+  e.preventDefault();
+  if (playerName.value === '') {
+    playerName.value = 'Unknown player';
+  }
+  this.parentNode.style.display = 'none';
+  easyDifficulty.parentNode.style.display = 'block';
+}
+
+playerNameSubmit.addEventListener('click', getName);
+
+function addItem() {
+  const playerNameValue = playerName.value;
+  const currentScoreValue = currentScore.innerText;
+  const item = { playerNameValue, currentScoreValue };
+  items = [...items, item];
+  updateListAndLocalStorage(items);
+}
+
+function updateListAndLocalStorage(items) {
+  populateList(items, tableBody);
+  localStorage.setItem('items', JSON.stringify(items));
+}
+
+function populateList(tables = [], tablesList) {
+  tablesList.innerHTML = tables
+    .sort((a, b) => (a.currentScoreValue > b.currentScoreValue ? -1 : 1))
+    .map((plate, i) => {
+      return `
+      <tr>
+        <th scope="row">${i + 1}</th>
+        <td>${plate.playerNameValue}</td>
+        <td>${plate.currentScoreValue}</td>
+      </tr>
+    `;
+    })
+    .join('');
+}
+
+populateList(items, tableBody);
 
 // hide start and repeat button on load
+easyDifficulty.parentNode.style.display = 'none';
 startButton.style.display = 'none';
 repeatButton.style.display = 'none';
 
@@ -82,6 +131,7 @@ const words = [
   'space',
   'definition'
 ];
+let checkStatusInterval;
 
 // Initialize Game
 function init() {
@@ -94,7 +144,7 @@ function init() {
   // Call countdown every second
   setInterval(countdown, 1000);
   // Check game status
-  setInterval(checkStatus, 50);
+  checkStatusInterval = setInterval(checkStatus, 50);
   // enable input
   wordInput.disabled = false;
   // `this` in this context is `startButton`
@@ -160,5 +210,7 @@ function checkStatus() {
     repeatButton.style.display = 'inline';
     // disable input
     wordInput.disabled = true;
+    addItem();
+    clearInterval(checkStatusInterval);
   }
 }
