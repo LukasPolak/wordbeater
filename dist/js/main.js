@@ -1,17 +1,6 @@
-window.addEventListener('load', init);
-
 // Globals
 
-// Available Levels
-const levels = {
-  easy: 5,
-  medium: 3,
-  hard: 1
-};
-
-// To change level
-const currentLevel = levels.medium;
-
+let currentLevel;
 let time = currentLevel;
 let score = 0;
 let isPlaying;
@@ -23,6 +12,9 @@ const scoreDisplay = document.querySelector('#score');
 const timeDisplay = document.querySelector('#time');
 const message = document.querySelector('#message');
 const seconds = document.querySelector('#seconds');
+
+// disable input
+wordInput.disabled = true;
 
 const words = [
   'hat',
@@ -64,6 +56,10 @@ function init() {
   setInterval(countdown, 1000);
   // Check game status
   setInterval(checkStatus, 50);
+  // enable input
+  wordInput.disabled = false;
+  // `this` in this context is `startButton`
+  this.style.display = 'none';
 }
 
 // Start match
@@ -122,5 +118,8 @@ function checkStatus() {
   if (!isPlaying && time === 0) {
     message.innerHTML = 'Game Over!!!';
     score = -1;
+    repeatButton.style.display = 'inline';
+    // disable input
+    wordInput.disabled = true;
   }
 }
