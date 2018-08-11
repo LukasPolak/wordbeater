@@ -21,6 +21,10 @@ const repeatButton = document.querySelector('[data-repeat]');
 const playerName = document.querySelector('[data-name]');
 const playerNameSubmit = document.querySelector('[data-name-submit]');
 const playerNameForm = document.querySelector('[data-form]');
+const currentScore = document.querySelector('[data-score]');
+const tableBody = document.querySelector('[data-table-body]');
+
+let items = JSON.parse(localStorage.getItem('items')) || [];
 
 function getName(e) {
   e.preventDefault();
